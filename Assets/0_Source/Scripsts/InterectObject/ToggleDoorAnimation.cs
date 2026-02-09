@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ToggleDoorAnimation : MonoBehaviour
+public class ToggleDoorAnimation : InterectObject
 {
     public AudioClip openDoorAudio;
     public AudioClip closeDoorAudio;
@@ -16,6 +16,9 @@ public class ToggleDoorAnimation : MonoBehaviour
     }
 
     private void OnMouseDown() {
+
+        if (ChekInterect() == false) return;
+
         isActive = !isActive;
         animator.SetBool(nameOpenAnimation, isActive);
 

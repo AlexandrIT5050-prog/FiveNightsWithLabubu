@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ToggleLight : MonoBehaviour
+public class ToggleLight : InterectObject
 {
     public AudioClip lightOnAudio;
     public AudioClip lightOffAudio;
@@ -16,6 +16,8 @@ public class ToggleLight : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (ChekInterect() == false) return;
+
         isActive = !isActive;
         light.SetActive(isActive);
 
