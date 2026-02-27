@@ -7,7 +7,6 @@ public class ToggleLight : InterectObject
     public PlaySoundEffects playSoundEffects;
     public GameObject light;
 
-    private bool isActive;
 
     private void Start()
     {
@@ -18,10 +17,10 @@ public class ToggleLight : InterectObject
     {
         if (ChekInterect() == false) return;
 
-        isActive = !isActive;
-        light.SetActive(isActive);
+        IsActive = !IsActive;
+        light.SetActive(IsActive);
 
-        if (isActive == true) playSoundEffects.PlayEffect(lightOnAudio);
+        if (IsActive == true) playSoundEffects.PlayEffect(lightOnAudio);
         else playSoundEffects.PlayEffect(lightOffAudio);
     }
 }

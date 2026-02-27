@@ -6,8 +6,7 @@ public class ToggleDoorAnimation : InterectObject
     public AudioClip closeDoorAudio;
     public PlaySoundEffects playSoundEffects;
 
-    private string nameOpenAnimation = "Open";
-    private bool isActive;
+    private string nameOpenAnimation = "Close";
     private Animator animator;
     void Start()
     {
@@ -19,10 +18,10 @@ public class ToggleDoorAnimation : InterectObject
 
         if (ChekInterect() == false) return;
 
-        isActive = !isActive;
-        animator.SetBool(nameOpenAnimation, isActive);
+        IsActive = !IsActive;
+        animator.SetBool(nameOpenAnimation, IsActive);
 
-        if (isActive == true) playSoundEffects.PlayEffect(openDoorAudio);
+        if (IsActive == false) playSoundEffects.PlayEffect(openDoorAudio);
         else playSoundEffects.PlayEffect(closeDoorAudio);
     }
 }
