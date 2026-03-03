@@ -1,16 +1,25 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CameraSwitcher : MonoBehaviour
 {
-    public GameObject mainCamera;
-    public CameraZone[] cameraZones;
-    public GameObject panelCameras;
-    public Button buttonActivePanel;
-    public bool IsActivePanel { get; private set; }
+    [SerializeField] private float delayOpenPanel = 0.5f;
+    [SerializeField] private Animator tableAnimator;
+    [SerializeField] private GameObject mainCamera;
+    [SerializeField] private CameraZone[] cameraZones;
+    [SerializeField] private GameObject panelCameras;
+    [SerializeField] private Button buttonActivePanel;
+
+    [SerializeField] private AudioClip openTabletAudio;
+    [SerializeField] private AudioClip closeTabletAudio;
+    [SerializeField] private PlaySoundEffects playSoundEffects;
+
 
     public static CameraSwitcher Instance;
 
+    public bool IsActivePanel { get; private set; }
+    private string _tabletOpenAnimation = "Open";
     private CameraZone _currentZone;
     
 
@@ -52,6 +61,15 @@ public class CameraSwitcher : MonoBehaviour
     private void SwitchActivePanel()
     {
         IsActivePanel = !IsActivePanel;
+        tableAnimator.SetBool(_tabletOpenAnimation, IsActivePanel);
+        if (IsActivePanel) playSoundEffects.PlayEffect(openTabletAudio);
+        else playSoundEffects.PlayEffect(closeTabletAudio);
+        StartCoroutine(SwitchActivePanelDelay());
+    }
+
+    private IEnumerator SwitchActivePanelDelay()
+    {
+        yield return new WaitForSeconds(delayOpenPanel);
         panelCameras.SetActive(IsActivePanel);
         SetActiveMainCamera(!IsActivePanel);
 
@@ -66,6 +84,6 @@ public class CameraSwitcher : MonoBehaviour
             {
                 SetActiveCameraZone(i, false);
             }
-        } 
+        }
     }
 }
